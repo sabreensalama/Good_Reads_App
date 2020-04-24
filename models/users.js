@@ -6,14 +6,14 @@ var userSchema = new mongoose.Schema({
 firstName: { type: String, required: true, maxlength: 20, minlength: 3 },
 lastName: { type: String, required: true, maxlength: 20, minlength: 3 },
 password: { type: String, required: true, minlength: 8 },
-dob: { type: Date, required: true, min: new Date('1995-01-01') },
-gender: { type: String, enum: ['m', 'f'] },
+dob: { type: Date, required: true, max: new Date('2000-01-01') },
+gender: { type: String, enum: ['m', 'f'] ,required: true,},
 email: { type: String, match: /.+@.+\..+/, unique: true, index: true },
-phoneNo: { type: String, maxlength: 11, minlength: 11, required: true, unique:true,}
+phoneNo: { type: String, maxlength: 11, minlength: 11, unique:true}
 })
 userSchema.pre('save', function(next) {
     var user = this;
-
+    
     // only hash the password if it has been modified (or is new)
     if (!user.isModified('password')) return next();
 
@@ -31,11 +31,6 @@ userSchema.pre('save', function(next) {
         });
     });
 });
-userSchema.methods.comparePassword = function(candidatePassword, cb) {
-    bcrypt.compare(candidatePassword, this.password, function(err, isMatch) {
-        if (err) return cb(err);
-        cb(null, isMatch);
-    });
-};
+
 const userModel = mongoose.model('User', userSchema)
 module.exports = userModel

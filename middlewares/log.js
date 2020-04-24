@@ -1,7 +1,9 @@
+const session = require('express-session')
 function logRequestBody(req, res, next) {
     console.log("watch request body", req.body)
-    if (!req.body){
-    return next("no parametrs supplied")
+    if (!session.email){
+        res.send("no authentication supplied");
+    
     }
     next()
     }
