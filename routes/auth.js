@@ -44,5 +44,8 @@ router.post('/signup', async (req, res) => {
   }
   
 });
+router.get('/', function(req, res) {
+  res.render('home', {locals: {title: 'Welcome!'}});
+});
 
 module.exports = router;
