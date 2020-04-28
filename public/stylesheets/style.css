@@ -21,3 +21,25 @@
   margin-left: 28%;
   width: 75% !important;
 }
+
+/*
+  Books.html
+*/
+
+.center_search_bar{
+  width: 60% !important;
+  border-radius: 25px !important;
+
+}
+
+.book_view_logout_button{
+  border-radius: 5px !important;
+  border-style: none !important;
+  color: #FFFFFF !important;
+  background-color: #4259C1 !important;
+}
+
+.username_book_navbar{
+  padding-top: 5px;
+  color: #000000;
+}
