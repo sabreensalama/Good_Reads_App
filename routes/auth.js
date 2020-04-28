@@ -28,7 +28,8 @@ router.post('/login',async (req,res) => {
         session.email = req.body.email;
         res.statusCode = 302;
         res.setHeader("Location", "/users");
-        res.send('logged in');
+        res.send("logged in");
+
     } else {
       res.render('home', {locals:{
         message: 'Incorrect password'}});
@@ -47,7 +48,11 @@ router.post('/signup', async (req, res) => {
   const user = new userModel(req.body);
   try {
    const tmp = await user.save();
-    res.send(tmp);
+    
+   session.email = req.body.email;
+   res.statusCode = 302;
+   res.setHeader("Location", "/users");
+    res.send("signed up");
   } catch (err) {
     
         res.render('home',{locals:{

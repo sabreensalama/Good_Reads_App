@@ -10,8 +10,6 @@ router.use((request , response , next) => {
 
 })
 router.get('/' , (request , response  ,next) => {
-  // handle el request to get data from source 
-  // return response
  BookModel.find({}).exec((err,books) =>{
    if(!err){
      response.json(books)
@@ -39,7 +37,7 @@ router.get('/' , (request , response  ,next) => {
  
 router.post('/' , ( request , response  ,next )=>{
   const { photo ,name,category,user } = request.body
-  const book = new UserModel(request.body)
+  const book = new BookModel(request.body)
   book.save((err,book)=>{
     if(!err)
     {

@@ -8,7 +8,7 @@ const { check, validationResult } = require('express-validator');
 const auth = require('./middlewares/log')
 
 const PORT = process.env.PORT || 5000
-require('./server/config/connection');
+mongoose.connect('mongodb://localhost:27017/booksys')
 
 
 const app = express();

@@ -53,6 +53,6 @@ mongoose.plugin(mongooseValidationErrorTransform, {
   }
 });
 mongoose.plugin(mongooseBeautifulUniqueValidation);
-const book =  mongoose.model('Book', bookschema);
+const bookModel =  mongoose.model('Book', bookschema);
 
-module.exports = book;
+module.exports = bookModel;
