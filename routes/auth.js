@@ -1,6 +1,7 @@
 var express = require('express');
 const userModel = require('../models/users');
 const session = require('express-session')
+let flash = require('connect-flash')
 var bcrypt = require('bcrypt');
 
 var router = express.Router();
@@ -10,6 +11,7 @@ router.use(session({
   saveUninitialized: true,
   cookie: { secure: true }
 }))
+router.use(flash())
 router.use(session({
   genid: function(req) {
     return genuuid() // use UUIDs for session IDs
@@ -24,14 +26,21 @@ router.post('/login',async (req,res) => {
     if (result == true) {
         
         session.email = req.body.email;
-        res.end('logged in');
+        res.statusCode = 302;
+        res.setHeader("Location", "/users");
+        res.send('logged in');
     } else {
-     res.send('Incorrect password');
+      res.render('home', {locals:{
+        message: 'Incorrect password'}});
     }
   });
 }
 else {
-  res.send('Incorrect username or password');
+  res.render('home',{locals:{
+    message: 'Incorrect username or password'
+    
+}});
+ 
  }
 });
 router.post('/signup', async (req, res) => {
@@ -40,12 +49,17 @@ router.post('/signup', async (req, res) => {
    const tmp = await user.save();
     res.send(tmp);
   } catch (err) {
-    res.status(500).send(err);
+    
+        res.render('home',{locals:{
+      err: err.message,
+      email:err.errors.email.message
+      
+  }});
   }
   
 });
 router.get('/', function(req, res) {
-  res.render('home', {locals: {title: 'Welcome!'}});
+  res.render('home' /*,{locals: {title: 'Welcome!'}}*/);
 });
 
 module.exports = router;

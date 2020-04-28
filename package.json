@@ -7,14 +7,18 @@
   },
   "dependencies": {
     "bcrypt": "^4.0.1",
+    "connect-flash": "^0.1.1",
     "cookie-parser": "~1.4.4",
     "debug": "~2.6.9",
     "express": "^4.16.4",
     "express-es6-template-engine": "^2.2.2",
     "express-session": "^1.17.1",
     "express-validator": "^6.4.0",
+    "hbs": "^4.1.1",
     "http-errors": "~1.6.3",
     "mongoose": "^5.9.10",
+    "mongoose-beautiful-unique-validation": "^7.1.1",
+    "mongoose-validation-error-transform": "0.0.5",
     "morgan": "~1.9.1"
   }
 }
