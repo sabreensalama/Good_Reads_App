@@ -12,7 +12,9 @@ router.use((request , response , next) => {
 router.get('/' , (request , response  ,next) => {
  BookModel.find({}).exec((err,books) =>{
    if(!err){
-     response.json(books)
+     //response.json(books)
+     response.render('books' /*,{locals: {title: 'Welcome!'}}*/);
+
    }
    next(err)
  })

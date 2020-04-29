@@ -27,7 +27,7 @@ router.post('/login',async (req,res) => {
         
         session.email = req.body.email;
         res.statusCode = 302;
-        res.setHeader("Location", "/users");
+        res.setHeader("Location", "/books");
         res.send("logged in");
 
     } else {
@@ -57,7 +57,7 @@ router.post('/signup', async (req, res) => {
     
         res.render('home',{locals:{
       err: err.message,
-      email:err.errors.email.message
+      /*email:err.errors.email.message*/
       
   }});
   }
