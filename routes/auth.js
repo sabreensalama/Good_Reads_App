@@ -51,15 +51,21 @@ router.post('/signup', async (req, res) => {
     
    session.email = req.body.email;
    res.statusCode = 302;
-   res.setHeader("Location", "/users");
+   res.setHeader("Location", "/books");
     res.send("signed up");
   } catch (err) {
-    
+    if (!err.errors.email.message)
         res.render('home',{locals:{
+      err: err.message     
+  }});
+  else
+  {
+    res.render('home',{locals:{
       err: err.message,
       /*email:err.errors.email.message*/
       
   }});
+  }
   }
   
 });
