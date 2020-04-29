@@ -1,39 +1,10 @@
-const mongoose = require('mongoose');
-const Schema = mongoose.Schema;
+const mongoose = require('mongoose')
 const mongooseBeautifulUniqueValidation = require('mongoose-beautiful-unique-validation');
 const mongooseValidationErrorTransform = require('mongoose-validation-error-transform');
+var authorSchema = new mongoose.Schema({
 
-const bookschema = mongoose.Schema({
-    photo: { 
-        data: Buffer, 
-        contentType: String 
-    },
-    
-    name: {
-        type: String,
-        default: '',
-        required: true,
-        unique: true
-
-
-    },
-    rate: { type: Number ,default:0.0},
-    raters: { type: Number ,default:0},
-    category: { type: Schema.Types.ObjectId, ref: 'Category', required: true},
-    user:{type: Schema.Types.ObjectId, ref: 'Author', required: true}
-    
-
-});
-bookschema.pre('find', function (next) {
-    this.populate('user')
-    this.populate('category')
-    var book=this
-    console.log(this[0])
-    book.rate=book.rate/book.raters
-    next()
-    })
-    
-      
+author: { type: String, required: true, maxlength: 20, minlength: 3 },
+})
 mongoose.plugin(mongooseValidationErrorTransform, {
  
     //
@@ -60,6 +31,6 @@ mongoose.plugin(mongooseValidationErrorTransform, {
   }
 });
 mongoose.plugin(mongooseBeautifulUniqueValidation);
-const bookModel =  mongoose.model('Book', bookschema);
 
-module.exports = bookModel;
+const authorModel = mongoose.model('Author', authorSchema)
+module.exports = authorModel

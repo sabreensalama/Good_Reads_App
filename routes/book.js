@@ -1,84 +1,64 @@
-var mongoose = require('mongoose');
-const express = require('express')
-const BookModel = require("../models/book")
-const router = express.Router()
+var express = require('express');
+const bookModel = require('../models/book');
+const session = require('express-session')
 
+var router = express.Router();
 
-router.use((request , response , next) => {
-    console.log('books route')
-    next()
+router.get('/', async (req, res) => {
+  const books = await bookModel.find({});
 
-})
-router.get('/' , (request , response  ,next) => {
- BookModel.find({}).exec((err,books) =>{
-   if(!err){
-     response.json(books)
-   }
-   next(err)
- })
+  try {
+    res.render('books' ,{locals: {books: books}});
+  } catch (err) {
+    res.status(500).send(err);
+  }
 
-})
+  
+});
 
-
- router.get('/:id' , (request , response) => {
+router.post('/', async (req, res) => {
+  const book = new bookModel(req.body);
+  try {
+   const tmp = await book.save();
+    
    
-  const parameters = request.params
-  // const id = parameters.id
-  const { id } = parameters
-  BookModel.findById( id , function(err, result) {
-   if (err) {
-     response.send(err);
-   } else {
-     response.json(result);
-   }
- });
-})
+    res.send("added");
+  } catch (err) {
+    
+    res.send(err);
+  }
+  
+});
 
- 
-router.post('/' , ( request , response  ,next )=>{
-  const { photo ,name,category,user } = request.body
-  const book = new BookModel(request.body)
-  book.save((err,book)=>{
-    if(!err)
-    {
-       response.json(book)
-    }
-    response.send(err)
-   })
-})
+router.get('/find', async (req, res) => {
+  const book = await bookModel.findOne({"email":req.params.id}) 
 
- router.patch('/:id' , (req , res , next ) =>{
-  const parameters = req.params
-  const { id } =parameters
- BookModel.findByIdAndUpdate(id, req.body, {
-  new: true
-},
-function(err, model) {
-  if (!err) {
-      res.status(201).json({
-          data: model
-      });
-  } else {
-      res.status(500).json({
-          message: "not found any relative data"
-      })
+  try {
+    res.send(book);
+  } catch (err) {
+    res.status(500).send(err);
+  }
+
+  
+});
+
+router.delete('/:id', async (req, res) => {
+  try {
+    const book = await bookModel.findByIdAndDelete(currentbook.id)
+    if (!book) res.status(404).send("No item found")
+    res.status(200).send()
+  } catch (err) {
+    res.status(500).send(err)
   }
 });
-})
- 
-router.delete('/:id' , (req , res ) =>{
-  const parameters = req.params
-  const { id } =parameters
-  BookModel.findByIdAndRemove(id, (err, book) => {
-
-    // check if query error
-    if (err) {
-        console.log(err);
-    }
-
-    res.json("your doc deleted")
+router.patch('/:id', async (req, res) => {
+  try {
+    await bookModel.findByIdAndUpdate(currentbook.id, req.body)
+    await bookModel.save()
+    res.send(book)
+  } catch (err) {
+    res.status(500).send(err)
+  }
 });
- })
 
- module.exports = router
- 
+module.exports = router;
