@@ -20,7 +20,8 @@ const bookschema = mongoose.Schema({
     rate: { type: Number ,default:0.0},
     raters: { type: Number ,default:0},
     category: { type: Schema.Types.ObjectId, ref: 'Category', required: true},
-    user:{type: Schema.Types.ObjectId, ref: 'Author', required: true}
+    user:{type: Schema.Types.ObjectId, ref: 'Author', required: true} ,
+
     
 
 });

@@ -1,14 +1,21 @@
 var express = require('express');
 const bookModel = require('../models/book');
+const readingStatusModel = require('../models/readingBookStatus');
+const userModel = require('../models/users');
+
+
 const session = require('express-session')
 
 var router = express.Router();
 
 router.get('/', async (req, res) => {
   const books = await bookModel.find({});
+  const currentUser= await userModel.findOne({"email":session.email}) 
+  const currentState = await readingStatusModel.findOne({"user":currentUser.id}) 
+
 
   try {
-    res.render('books' ,{locals: {books: books}});
+    res.render('books' ,{locals: {books: books , status:currentState}});
   } catch (err) {
     res.status(500).send(err);
   }
