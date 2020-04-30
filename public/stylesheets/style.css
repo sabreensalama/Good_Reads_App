@@ -99,3 +99,64 @@ Admin.html
   outline: 0 none !important;
   box-shadow: 0 0 5px rgba(98, 101, 228, 1) !important;
 }
+
+/*
+  AdminHome.html
+*/
+
+.fa-user-cog{
+  color: #D23E91;
+}
+
+.nav-item a{
+  color: #2F2C90;
+}
+
+.nav-item  a:focus{
+  color: #FFFFFF !important;
+  font-family: 'Open Sans', sans-serif;
+}
+
+
+ .nav-item .active
+ {
+    color: #FFFFFF;
+    background-color: #210F41 !important;
+    font-family: 'Open Sans', sans-serif;
+
+}
+
+.categories_add_button{
+  width: 10%;
+  background-color: #6D6EC7 ;
+  color: white;
+  border-style: none;
+  border-radius: 8px !important;
+  margin-bottom: 10px;
+  font-family: 'Open Sans', sans-serif;
+  transition: background-color 0.9s ease-out;
+}
+
+.categories_add_button:hover{
+  background-color: #3735A2;
+
+}
+
+.fa-plus-circle{
+  font-size: 30px;
+}
+
+.category_fa_icon{
+  font-size: 25px;
+}
+
+.actions_buttons_table_edit{
+  background-color: #210F41 !important;
+  border-style: none !important;
+}
+
+.actions_buttons_table_delete{
+  background-color: #D64154 !important;
+  border-style: none !important;
+
+}
