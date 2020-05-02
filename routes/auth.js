@@ -26,18 +26,19 @@ router.post('/login',async (req,res) => {
     if (result == true) {
         
         session.email = req.body.email;
+        
         res.statusCode = 302;
         res.setHeader("Location", "/books");
         res.send("logged in");
-
+        return;
     } else {
-      res.render('home', {locals:{
+      res.render('layouts/main', {locals:{
         message: 'Incorrect password'}});
     }
   });
 }
 else {
-  res.render('home',{locals:{
+  res.render('layouts/main',{locals:{
     message: 'Incorrect username or password'
     
 }});
@@ -53,14 +54,15 @@ router.post('/signup', async (req, res) => {
    res.statusCode = 302;
    res.setHeader("Location", "/books");
     res.send("signed up");
+    return;
   } catch (err) {
-    if (!err.errors.email.message)
-        res.render('home',{locals:{
+    if (!err.errors.email)
+        res.render('layouts/main',{locals:{
       err: err.message     
   }});
   else
   {
-    res.render('home',{locals:{
+    res.render('layouts/main',{locals:{
       err: err.message,
       email:err.errors.email.message
       
@@ -70,7 +72,8 @@ router.post('/signup', async (req, res) => {
   
 });
 router.get('/', function(req, res) {
-  res.render('home' /*,{locals: {title: 'Welcome!'}}*/);
+  res.render('layouts/main' /*,{locals: {title: 'Welcome!'}}*/);
+  return;
 });
 
 module.exports = router;
