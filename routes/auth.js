@@ -64,7 +64,7 @@ router.post('/signup', async (req, res) => {
   {
     res.render('layouts/main',{locals:{
       err: err.message,
-      email:err.errors.email.message
+      /*email:err.errors.email.message*/
       
   }});
   }
