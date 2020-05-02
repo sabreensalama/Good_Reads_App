@@ -1,13 +1,10 @@
 var express = require('express');
-const userModel = require('../models/users');
-const session = require('express-session')
-let flash = require('connect-flash')
 var router = express.Router();
 
-router.get('/', (req, res) => {
-    res.render('adminlogin')
-    return
-})
 
-
-module.exports = router;
+router.get('/', function(req, res,next) {
+    res.render('layouts/adminlogin' ,{layout: 'adminlogin'});
+  });
+  
+  module.exports = router;
+  
