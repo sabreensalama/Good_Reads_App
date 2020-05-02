@@ -88,16 +88,18 @@
                        <td>{{category.category}}</td>
                        
                     <td>{{divide rate raters}}</td>
-                   
+
+                   {{#contains ../booksIds id}}
                    {{#each ../state}}
                       
                    {{#compare this.book.id "==" ../id}} 
            <td>{{this.status}}</td>
-           {{else}}
-           <td>never readed</td>
            {{/compare}}
              {{/each}}
-                    
+               
+           {{else}}
+           <td>never readed</td> 
+{{/contains}}
                     </tr>
                         
                     {{/books}}

@@ -9,12 +9,16 @@ const session = require('express-session')
 var router = express.Router();
 
 router.get('/', async (req, res) => {
-  
+  var booksIds = [];
   try {
     const books = await bookModel.find({});
+    
   const user = await userModel.findOne({"email":session.email}) 
   const currentState = await readingStatusModel.find({"user":user.id}); 
-    await res.render('layouts/books' ,{books: books , state: currentState,layout : 'books'});
+  currentState.forEach((x)=>{
+    booksIds.push(x.book.id);
+ })
+    res.render('layouts/books' ,{booksIds: booksIds,books: books , state: currentState,layout : 'books'});
     return;
   } catch (err) {
     res.send(err);
