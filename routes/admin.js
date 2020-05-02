@@ -4,10 +4,9 @@ const session = require('express-session')
 let flash = require('connect-flash')
 var router = express.Router();
 
-router.get('/', (req, res) => {
-    res.render('adminlogin')
-    return
-})
-
+router.get('/', function(req, res, next) {
+    res.render('layouts/adminlogin', {layout: adminlogin});
+    return;
+});
 
 module.exports = router;
