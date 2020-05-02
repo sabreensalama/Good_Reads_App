@@ -160,3 +160,8 @@ Admin.html
   border-style: none !important;
 
 }
+
+.all_books_column{
+  padding-top: 10px;
+  padding-bottom: 30px;
+}

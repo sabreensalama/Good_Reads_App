@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="stylesheets/style.css">
+    <!--bootstrap Libraries-->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <!--Font Awesome-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/js/all.min.js"></script>
+    <title>Books</title>
+</head>
+<body>
+    <div class="container-fluid">
+        <!--Navbar BEGIN-->
+        <div class="row">
+          <div class="col-12">
+            <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                <a class="navbar-brand" href="#"><i class="fas fa-book-reader"></i> goodReads</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+                  <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                  <div class="navbar-nav">
+                    <a class="nav-item nav-link active" href="#">Home <span class="sr-only">(current)</span></a>
+                    <a class="nav-item nav-link active" href="#">Categories</a>
+                    <a class="nav-item nav-link active" href="#">Books</a>
+                    <a class="nav-item nav-link active" href="#">Authors</a>
+                  </div>
+                </div>
+
+                <div class="col-6">
+                  <form class="form-inline text-center">
+                    <input class="form-control mr-sm-2  center_search_bar" type="search" placeholder="Search" aria-label="Search">
+                  </form>
+
+                </div>
+                
+                <form class="form-inline">
+                  <img src="/images/user.png" width="50px" alt="" srcset="">
+                  <h6 class="mr-sm-2 username_book_navbar">Username</h6>
+                  <button class="btn btn-outline-success my-2 my-sm-0 book_view_logout_button" type="submit">
+                    <i class="fas fa-sign-out-alt"></i> Log Out
+                  </button>
+                </form>
+            </nav>
+          </div>
+    </div>
+</div>
+<!--Navbar END-->
+
+<div class="row">
+    <div class="col-1"></div>
+    <div class="col-11">
+
+        <div class="card mb-3" style="max-width: 540px;">
+            <div class="row no-gutters">
+              <div class="col-md-4">
+                <img src="k8s.jpg" class="card-img" alt="...">
+                <select class="form-control">
+                    <option>Want to read</option>
+                    <option value="">Already Read</option>
+                </select>
+
+              </div>
+              <div class="col-md-8">
+                <div class="card-body">
+                  <h4 class="card-title">Card title</h4>
+                  <h5>By Author name</h5>
+                  <h5>Category name</h5>
+                  <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+
+
+
+                </div>
+              </div>
+            </div>
+          </div>
+
+
+
+    </div>
+</div>
+
+<!--Reviews-->
+
+<div class="row">
+    <div class="col-1"></div>
+    <div class="col-10">
+        <nav>
+            <div class="nav nav-tabs" id="nav-tab" role="tablist">
+              <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">Reviews</a>
+            </div>
+          </nav>
+          <div class="tab-content" id="nav-tabContent">
+            <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+
+                <div class="list-group">
+                    <a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
+                      <div class="d-flex w-100 justify-content-between">
+                        <h5 class="mb-1">Not the best book but</h5>
+                        <small>3 days ago</small>
+                      </div>
+                      <p class="mb-1">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
+                      <small>Donec id elit non mi porta.</small>
+                    </a>
+                    <a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
+                      <div class="d-flex w-100 justify-content-between">
+                        <h5 class="mb-1">List group item heading</h5>
+                        <small class="text-muted">3 days ago</small>
+                      </div>
+                      <p class="mb-1">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
+                      <small class="text-muted">Donec id elit non mi porta.</small>
+                    </a>
+                    <a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
+                      <div class="d-flex w-100 justify-content-between">
+                        <h5 class="mb-1">List group item heading</h5>
+                        <small class="text-muted">3 days ago</small>
+                      </div>
+                      <p class="mb-1">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
+                      <small class="text-muted">Donec id elit non mi porta.</small>
+                    </a>
+                  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            </div>
+          </div>
+    </div>
+    <div class="col-1"></div>
+
+</div>
+
+
+
+
+
+</body>
+</html>
