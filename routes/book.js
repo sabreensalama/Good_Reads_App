@@ -9,13 +9,34 @@ const session = require('express-session')
 var router = express.Router();
 
 router.get('/', async (req, res) => {
-  const books = await bookModel.find({});
+  var booksIds = [];
+  try {
+    const books = await bookModel.find({});
+    
+  const user = await userModel.findOne({"email":session.email}) 
+  const currentState = await readingStatusModel.find({"user":user.id}); 
+  currentState.forEach((x)=>{
+    booksIds.push(x.book.id);
+ })
+    res.render('layouts/books' ,{booksIds: booksIds,books: books , state: currentState,layout : 'books'});
+    return;
+  } catch (err) {
+    res.send(err);
+   
+  }
+
+  
+});
+router.post('/addstatus', async (req, res) => {
   const currentUser= await userModel.findOne({"email":session.email}) 
-  const currentState = await readingStatusModel.findOne({"user":currentUser.id}) 
+  const currentState = new readingStatusModel({"user":currentUser.id,"status":req.body.status,"book":req.body.book}) 
 
 
   try {
-    res.render('books' ,{locals: {books: books , status:currentState}});
+    const tmp = await currentState.save();
+       
+    res.send("added");
+
   } catch (err) {
     res.status(500).send(err);
   }
