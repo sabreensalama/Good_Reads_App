@@ -38,8 +38,9 @@ app.use(express.static('public'))
 app.use(express.json())
 app.use(express.urlencoded())
 
-app.use('/admin', adminRouter)
 app.use('/', authRouter)
+app.use('/admin', adminRouter)
+
 app.use(auth)
 app.use('/users', userRouter)
 app.use('/books',bookRoute)
