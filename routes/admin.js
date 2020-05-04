@@ -1,5 +1,6 @@
 var express = require('express');
 const userModel = require('../models/users');
+const categoryModel = require('../models/categories');
 const session = require('express-session')
 let flash = require('connect-flash')
 var bcrypt = require('bcrypt');
@@ -46,8 +47,10 @@ router.get('/', function(req, res,next) {
     res.render('layouts/adminlogin' ,{layout: 'adminlogin'});
   });
 
-router.get('/home', function(req, res,next) {
-    res.render('layouts/adminhome' ,{layout: 'adminhome'});
+router.get('/home', async (req, res,) => {
+    const categories = await categoryModel.find({})
+    res.render('layouts/adminhome' ,{categories: categories, layout: 'adminhome'});
+    return;
   });
   
 
