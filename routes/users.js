@@ -26,11 +26,12 @@ router.get('/profile', async (req, res) => {
 
   
 });
-router.get('/find', async (req, res) => {
-  const user = await userModel.findOne({"email":req.params.email}) 
+router.post('/find', async (req, res) => {
+  const user = await userModel.findOne({"email":req.body.email}) 
 
   try {
     res.send(user);
+    console.log(user)
   } catch (err) {
     res.status(500).send(err);
   }

@@ -59,13 +59,13 @@ router.post('/', async (req, res) => {
 });
 
 router.get('/:id', async (req, res) => {
-  var id = req.params.id
-  var book = await bookModel.findById(id) 
+  var bookitem = await bookModel.findById(req.params.id) 
   // console.log(book)
 
   try {
     // res.render('layouts/getBook' ,{ book:book ,id:id, layout:'getBook'});
-     res.send(book)
+     res.send(bookitem)
+     console.log(bookitem)
 
   } catch (err) {
     res.status(500).send(err);

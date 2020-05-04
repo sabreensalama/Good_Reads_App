@@ -3,7 +3,7 @@ const Schema = mongoose.Schema;
 const mongooseBeautifulUniqueValidation = require('mongoose-beautiful-unique-validation');
 const mongooseValidationErrorTransform = require('mongoose-validation-error-transform');
 
-const bookschema = mongoose.Schema({
+const booksschema = mongoose.Schema({
     photo: { 
         data: Buffer, 
         contentType: String 
@@ -25,42 +25,39 @@ const bookschema = mongoose.Schema({
     
 
 });
-// bookschema.pre('find', function (next) {
-//     this.populate('user')
-//     this.populate('category')
-//     var book=this
-//     console.log(this[0])
-//     book.rate=book.rate/book.raters
-//     next()
-//     })
+booksschema.pre('find', function (next) {
+    this.populate('user')
+    this.populate('category')
+    next()
+    })
     
       
-// mongoose.plugin(mongooseValidationErrorTransform, {
+mongoose.plugin(mongooseValidationErrorTransform, {
  
-//     //
-//     // these are the default options you can override
-//     // (you don't need to specify this object otherwise)
-//     //
+    //
+    // these are the default options you can override
+    // (you don't need to specify this object otherwise)
+    //
    
-//     // should we capitalize the first letter of the message?
-//     capitalize: true,
+    // should we capitalize the first letter of the message?
+    capitalize: true,
    
-//     // should we convert `full_name` => `Full name`?
-//     humanize: true,
+    // should we convert `full_name` => `Full name`?
+    humanize: true,
    
-//     // how should we join together multiple validation errors?
-//     transform: function(messages) {
-//       return messages.join(',<br>');
-//     }
+    // how should we join together multiple validation errors?
+    transform: function(messages) {
+      return messages.join(',<br>');
+    }
    
-//   });
-//   mongoose.plugin(mongooseValidationErrorTransform, {
-//   transform: function(messages) {
-//     if (messages.length === 1) return messages[0];
-//     return `<ul class="text-xs-left mb-0"><li>${messages.join('</li><li>')}</li></ul>`;
-//   }
-// });
-// mongoose.plugin(mongooseBeautifulUniqueValidation);
-const bookModel =  mongoose.model('Book', bookschema);
+  });
+  mongoose.plugin(mongooseValidationErrorTransform, {
+  transform: function(messages) {
+    if (messages.length === 1) return messages[0];
+    return `<ul class="text-xs-left mb-0"><li>${messages.join('</li><li>')}</li></ul>`;
+  }
+});
+mongoose.plugin(mongooseBeautifulUniqueValidation);
+const bookModel =  mongoose.model('Book', booksschema);
 
 module.exports = bookModel;
