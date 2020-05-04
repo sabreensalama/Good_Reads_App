@@ -9,14 +9,14 @@ const path = require('path');
 const { check, validationResult } = require('express-validator');
 const auth = require('./middlewares/log')
 var exphbs  = require('express-handlebars');
+require('./server/config/connection');
+
 const {allowInsecurePrototypeAccess} = require('@handlebars/allow-prototype-access')
 const Handlebars = require('handlebars')
 var helpers2 = require('handlebars-helpers')({
     handlebars: Handlebars
   });
 const PORT = process.env.PORT || 5000
-mongoose.connect('mongodb://localhost:27017/booksys')
-
 
 const app = express();
 // Handlebars.registerHelper('contains', function(needle, haystack, options) {
@@ -26,7 +26,8 @@ const app = express();
 //  });
 app.engine('handlebars', exphbs({
     handlebars: allowInsecurePrototypeAccess(Handlebars),
-    helpers: helpers2
+    helpers: helpers2,
+    
     
 }));
 app.set('view engine', 'handlebars');

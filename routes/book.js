@@ -1,5 +1,5 @@
 var express = require('express');
-const bookModel = require('../models/book');
+const bookModel = require('../models/books');
 const readingStatusModel = require('../models/readingBookStatus');
 const userModel = require('../models/users');
 
@@ -57,12 +57,31 @@ router.post('/', async (req, res) => {
   }
   
 });
+router.get('/search', async (req, res) => {
+  
+  word = req.query.word.replace(/\s+/g, '');
 
-router.get('/find', async (req, res) => {
-  const book = await bookModel.findOne({"email":req.params.id}) 
+  var book = await bookModel.find({ 'name' : { '$regex' : word, '$options' : 'i' } });
+  try {
+    console.log(book)
+    if(word)
+    res.json({ book: book })
+ else
+ res.json({})
+  } catch (err) {
+    
+    res.send(err);
+  }
+  
+});
+router.get('/:id', async (req, res) => {
+  var book = await bookModel.findById(req.params.id) 
+  // console.log(book)
 
   try {
-    res.send(book);
+    // res.render('layouts/getBook' ,{ book:book ,id:id, layout:'getBook'});
+     res.send(book)
+
   } catch (err) {
     res.status(500).send(err);
   }
