@@ -1,5 +1,5 @@
 var express = require('express');
-const bookModel = require('../models/book');
+const bookModel = require('../models/books');
 const readingStatusModel = require('../models/readingBookStatus');
 const userModel = require('../models/users');
 
@@ -58,11 +58,15 @@ router.post('/', async (req, res) => {
   
 });
 
-router.get('/find', async (req, res) => {
-  const book = await bookModel.findOne({"email":req.params.id}) 
+router.get('/:id', async (req, res) => {
+  var id = req.params.id
+  var book = await bookModel.findById(id) 
+  // console.log(book)
 
   try {
-    res.send(book);
+    // res.render('layouts/getBook' ,{ book:book ,id:id, layout:'getBook'});
+     res.send(book)
+
   } catch (err) {
     res.status(500).send(err);
   }
