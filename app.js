@@ -26,7 +26,8 @@ const app = express();
 //  });
 app.engine('handlebars', exphbs({
     handlebars: allowInsecurePrototypeAccess(Handlebars),
-    helpers: helpers2
+    helpers: helpers2,
+    
     
 }));
 app.set('view engine', 'handlebars');

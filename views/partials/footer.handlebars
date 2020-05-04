@@ -1,0 +1,38 @@
+  
+      </div>
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script type="text/javascript">
+        $(document).ready(function () {
+            $('#suggestion_form').keyup(function () {
+                $form = $(this)
+                var formData = new FormData(this);
+                var text=$("#suggestion").val()
+                var query = $(this).val();
+                $.ajax({
+                    url: "/books/search?word="+text,
+                    type: 'GET',
+                    
+                    success: function (data) {
+                        console.log("SUCCESS");
+                        
+                        $("#searchbox").css("display", "block");
+                        $("#searchbox").empty()
+                        for (i in data["book"]) {
+                            $('#searchbox').append('<li class="list-group-item" ><a id="' +
+                                i + '" href="/books/' + data["book"][i]._id+'">' + data["book"][i].name + '</a></li>');
+                            $('#' + i + '').click();
+                        }
+                    },
+                    failure: function (data) {
+                        console.log("FAIL");
+                        console.log(data);
+                    },
+                    cache: false,
+                    contentType: false,
+                    processData: false
+                });
+            });
+        });
+    </script>
+</body>
+</html>
