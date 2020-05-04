@@ -59,8 +59,7 @@ router.post('/', async (req, res) => {
 });
 
 router.get('/:id', async (req, res) => {
-  var id = req.params.id
-  var book = await bookModel.findById(id) 
+  var book = await bookModel.findById(req.params.id) 
   // console.log(book)
 
   try {
