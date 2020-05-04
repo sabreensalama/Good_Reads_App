@@ -57,7 +57,23 @@ router.post('/', async (req, res) => {
   }
   
 });
+router.get('/search', async (req, res) => {
+  
+  word = req.query.word.replace(/\s+/g, '');
 
+  var book = await bookModel.find({ 'name' : { '$regex' : word, '$options' : 'i' } });
+  try {
+    console.log(book)
+    if(word)
+    res.json({ book: book })
+ else
+ res.json({})
+  } catch (err) {
+    
+    res.send(err);
+  }
+  
+});
 router.get('/:id', async (req, res) => {
   var book = await bookModel.findById(req.params.id) 
   // console.log(book)
