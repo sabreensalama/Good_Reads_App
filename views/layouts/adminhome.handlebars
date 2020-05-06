@@ -184,7 +184,7 @@
                         <span aria-hidden="true">&times;</span>
                       </button>
                     </div>
-                    <form method="POST" action="/admin/books">
+                    <form method="POST" action="/admin/books" enctype="multipart/form-data">
                       <div class="modal-body">
                           <div class="form-group">
                             <label for="recipient-name" class="col-form-label">
@@ -214,8 +214,8 @@
                             </div>
 
                             <div class="custom-file">
-                              <input type="file" class="custom-file-input" id="customFile" name="photo">
-                              <label class="custom-file-label" for="customFile">Choose Image</label>
+                              <input type="file" class="custom-file-input" id="cover" name="cover">
+                              <label class="custom-file-label" for="cover">Choose Image</label>
                             </div>
 
 
@@ -249,55 +249,94 @@
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <th scope="row">1</th>
-                  <td>Mark</td>
-                  <td>Mark</td>
-                  <td>Mark</td>
-                  <td>Mark</td>
-                  <td>
-                    <button type="button" class="btn btn-primary actions_buttons_table_edit">
-                      <i class="fas fa-edit "></i>
-                    </button>
+                {{#if books}}
+                  {{#each books}}
+                    <tr>
+                      <th scope="row">{{this._id}}</th>
+                      <td>{{this.cover}}</td>
+                      <td>{{this.name}}</td>
+                      <td>{{this.category.category}}</td>
+                      <td>{{this.user.author}}</td>
+                      <td>
+                        <div class="tab-pane fade show active" id="pills-profile" role="tabpanel"
+                          aria-labelledby="pills-profile-tab">
+                          <button type="button" class="btn categories_add_button" data-toggle="modal" data-target="#exampleModal{{this._id}}"
+                            data-whatever="@mdo">
+                            <i class="fas fa-plus-circle"></i>
+                          </button>
 
-                    <button type="button" class="btn btn-primary actions_buttons_table_delete">
-                      <i class="far fa-trash-alt "></i>
-                    </button>
-                  </td>
-                </tr>
-                <tr>
-                  <th scope="row">2</th>
-                  <td>Jacob</td>
-                  <td>Mark</td>
-                  <td>Mark</td>
-                  <td>Mark</td>
-                  <td>
-                    <button type="button" class="btn btn-primary actions_buttons_table_edit">
-                      <i class="fas fa-edit "></i>
-                    </button>
+                          <div class="modal fade text-center" id="exampleModal{{this._id}}" tabindex="-2" role="dialog"
+                            aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                              <div class="modal-content">
+                                <div class="modal-header">
+                                  <h5 class="modal-title" id="exampleModalLabel2">Edit Book</h5>
+                                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                  </button>
+                                </div>
+                                <form method="POST" action="/admin/books/{{this._id}}" enctype="multipart/form-data"  class="d-inline">
+                                  <div class="modal-body">
+                                      <div class="form-group">
+                                        <label for="recipient-name" class="col-form-label">
+                                          <i class="fas fa-book"></i>
+                                        </label>
+                                        <input type="text" class="form-control" id="recipient-name" placeholder="Book name" name="name" value="{{this.name}}">
+                                        <div class="form-group">
+                                          <label for="exampleFormControlSelect1">Category</label>
+                                          <select class="form-control text-center" id="exampleFormControlSelect1" name="category" aria-valuetext="{{this.category}}">
+                                            {{#if categories}}
+                                              {{#each categories}}
+                                                <option value="{{this._id}}">{{this.category}}</option>
+                                              {{/each}}
+                                            {{/if}}     
+                                          </select>
+                                        </div>
 
-                    <button type="button" class="btn btn-primary actions_buttons_table_delete">
-                      <i class="far fa-trash-alt "></i>
-                    </button>
-                  </td>
-                </tr>
-                <tr>
-                  <th scope="row">3</th>
-                  <td>Jacob</td>
-                  <td>Mark</td>
-                  <td>Mark</td>
-                  <td>Mark</td>
-                  <td>
-                    <button type="button" class="btn btn-primary actions_buttons_table_edit">
-                      <i class="fas fa-edit "></i>
-                    </button>
+                                        <div class="form-group">
+                                          <label for="exampleFormControlSelect1">Author</label>
+                                          <select class="form-control text-center" id="exampleFormControlSelect1" name="user" aria-valuetext="{{this.user}}">
+                                            {{#if authors}}
+                                              {{#each authors}}
+                                                <option value="{{this._id}}">{{this.author}}</option>
+                                              {{/each}}
+                                            {{/if}}  
+                                          </select>
+                                        </div>
 
-                    <button type="button" class="btn btn-primary actions_buttons_table_delete">
-                      <i class="far fa-trash-alt "></i>
-                    </button>
-                  </td>
+                                        <div class="custom-file">
+                                          <input type="file" class="custom-file-input" id="cover" name="cover" value="{{this.cover}}">
+                                          <label class="custom-file-label" for="cover">Choose Image</label>
+                                        </div>
 
-                </tr>
+
+
+                                      </div>
+                                  </div>
+                                  <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                                      <i class="far fa-times-circle category_fa_icon"></i>
+                                    </button>
+                                    <button type="submit" class="btn btn-primary">
+                                      <i class="far fa-check-circle category_fa_icon"></i>
+                                    </button>
+                                  </div>
+                                </form>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+
+                        <form method="GET" action="/admin/books/{{this._id}}" class="d-inline">
+                          <button type="submit" class="btn btn-danger actions_buttons_table_delete">
+                            <i class="far fa-trash-alt "></i>
+                          </button>
+                        </form>
+
+                      </td>
+                    </tr>
+                  {{/each}}
+                {{/if}}
               </tbody>
             </table>
           </div>
@@ -363,12 +402,12 @@
                       <td>{{this.author}}</td>
                       <td>
                         <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
-                            <button type="button" class="btn btn-primary categories_add_button" data-toggle="modal" data-target="#exampleModal5"
+                            <button type="button" class="btn btn-primary categories_add_button" data-toggle="modal" data-target="#exampleModal{{this._id}}"
                               data-whatever="@mdo">
                               <i class="fas fa-edit "></i>
                             </button>
 
-                            <div class="modal fade text-center" id="exampleModal5" tabindex="-1" role="dialog"
+                            <div class="modal fade text-center" id="exampleModal{{this._id}}" tabindex="-1" role="dialog"
                               aria-labelledby="exampleModalLabel" aria-hidden="true">
                               <div class="modal-dialog" role="document">
                                 <div class="modal-content">

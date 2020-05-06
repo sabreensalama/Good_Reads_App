@@ -4,7 +4,7 @@ const mongooseBeautifulUniqueValidation = require('mongoose-beautiful-unique-val
 const mongooseValidationErrorTransform = require('mongoose-validation-error-transform');
 
 const bookschema = mongoose.Schema({
-    photo: {
+    cover: {
       type: String,
       required: true
     },
