@@ -1,7 +1,7 @@
 var mongoose = require('mongoose');
 
 // We need to difine the URL
-var URL = process.env.URL || 'mongodb://localhost/CRUD_DB';
+var URL = process.env.URL || 'mongodb://localhost/booksys';
 
 mongoose.set('useCreateIndex', true);
 
