@@ -19,7 +19,6 @@ router.get('/', async (req, res) => {
     booksIds.push(x.book.id);
  })
  const pageCount = Math.ceil(books.length / 10);
- console.log("asdasd"+req.query.p);
  let page = parseInt(req.query.p);
  if (!page) { page = 1;}
  if (page > pageCount) {

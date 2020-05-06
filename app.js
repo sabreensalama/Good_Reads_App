@@ -30,6 +30,9 @@ Handlebars.registerHelper('times', function(n, block) {
       accum += block.fn(i);
   return accum;
 });
+Handlebars.registerHelper('ifEquals', function(arg1, arg2, options) {
+  return (arg1 == arg2) ? options.fn(this) : options.inverse(this);
+});
 app.engine('handlebars', exphbs({
     handlebars: allowInsecurePrototypeAccess(Handlebars),
     helpers: helpers2
