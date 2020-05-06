@@ -24,11 +24,10 @@ router.get('/', async (req, res) => {
  if (page > pageCount) {
    page = pageCount
  }
-    res.render('layouts/books' ,{page: page,pageCount: pageCount,booksIds: booksIds,books: books.slice(page * 10 - 10, page * 10) , state: currentState,layout : 'books'});
-    return;
+ return res.render('layouts/books' ,{page: page,pageCount: pageCount,booksIds: booksIds,books: books.slice(page * 10 - 10, page * 10) , state: currentState,layout : 'books'});
+    
   } catch (err) {
-    res.send(err);
-   
+    return res.status(500).json(err);
   }
 
   
