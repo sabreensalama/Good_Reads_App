@@ -186,4 +186,27 @@ router.post('/books', upload.single('cover'), async (req, res) => {
 
 });
 
+router.get('/books/:id', async (req, res) => {
+  try {
+    const book = await bookModel.findByIdAndDelete(req.params.id)
+    if (!book) res.status(404).send("No item found")
+    res.redirect("/admin/home");
+    return;
+  } catch (err) {
+    res.status(500).send(err)
+  }
+});
+
+router.post('/books/:id', async (req, res) => {
+  try {
+    const tmp = await bookModel.findByIdAndUpdate(req.params.id, req.body)
+    tmp.save()
+    res.redirect("/admin/home");
+    return;
+  } catch (err) {
+    res.status(500).send(err)
+  }
+});
+
+
 module.exports = router;
