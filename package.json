@@ -21,7 +21,7 @@
     "handlebars-helpers": "^0.10.0",
     "hbs": "^4.1.1",
     "http-errors": "~1.6.3",
-    "mongoose": "^5.9.10",
+    "mongoose": "^5.9.11",
     "mongoose-beautiful-unique-validation": "^7.1.1",
     "mongoose-validation-error-transform": "0.0.5",
     "morgan": "~1.9.1"
