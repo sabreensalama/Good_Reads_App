@@ -24,9 +24,15 @@ const app = express();
 //     haystack = Handlebars.escapeExpression(haystack);
 //     return (haystack.indexOf(needle) > -1) ? options.fn(this) : options.inverse(this);
 //  });
+Handlebars.registerHelper('times', function(n, block) {
+  var accum = '';
+  for(var i = 1; i <= n; ++i)
+      accum += block.fn(i);
+  return accum;
+});
 app.engine('handlebars', exphbs({
     handlebars: allowInsecurePrototypeAccess(Handlebars),
-    helpers: helpers2,
+    helpers: helpers2
     
     
 }));

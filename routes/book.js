@@ -18,7 +18,14 @@ router.get('/', async (req, res) => {
   currentState.forEach((x)=>{
     booksIds.push(x.book.id);
  })
-    res.render('layouts/books' ,{booksIds: booksIds,books: books , state: currentState,layout : 'books'});
+ const pageCount = Math.ceil(books.length / 10);
+ console.log("asdasd"+req.query.p);
+ let page = parseInt(req.query.p);
+ if (!page) { page = 1;}
+ if (page > pageCount) {
+   page = pageCount
+ }
+    res.render('layouts/books' ,{page: page,pageCount: pageCount,booksIds: booksIds,books: books.slice(page * 10 - 10, page * 10) , state: currentState,layout : 'books'});
     return;
   } catch (err) {
     res.send(err);
