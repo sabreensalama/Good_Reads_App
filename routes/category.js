@@ -52,9 +52,9 @@ router.delete('/:id', async (req, res) => {
   try {
     const category = await categoryModel.findByIdAndDelete(req.params.id)
     if (!category) res.status(404).send("No item found")
-    res.status(200).send("DELETED")
+    // res.status(200).send("DELETED")
     // res.setHeader("Location", "/admin/home");
-    // res.redirect("/admin/home");
+    res.redirect("/admin/home");
     return;
   } catch (err) {
     res.status(500).send(err)
