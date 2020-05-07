@@ -29,7 +29,7 @@
                   <tbody>
                     {{#books}}
                     <tr>
-                      <th scope="row">1</th>
+                      <th scope="row"><img src="../uploads/{{this.cover}}"></th>
                       <td><a href="/books/{{id}}">{{name}}</a></td>
                       <td><a href="/authors/{{user.author.id}}">{{user.author}}</a></td>
                        <td><a href="/categories/{{category.category.id}}">{{category.category}}</a></td>
@@ -73,7 +73,7 @@
                       
                    {{#compare this.book.id "==" ../id}} 
                     {{#if ( compare this.status "==" "finished reading" )}}
-                <th scope="row">1</th>
+                <th scope="row"><img src="../uploads/{{../cover}}"></th>
                       <td><a href="/books/{{../id}}">{{../name}}</a></td>
                       
                       <td><a href="/authors/{{../user.author.id}}">{{../user.author}}</a></td>
@@ -116,7 +116,7 @@
                       
                    {{#compare this.book.id "==" ../id}} 
                     {{#if ( compare this.status "==" "reading" )}}
-                <th scope="row">1</th>
+                <th scope="row"><img src="../uploads/{{../cover}}"></th>
                       <td><a href="/books/{{../id}}">{{../name}}</a></td>
                       
                       <td><a href="/authors/{{../user.author.id}}">{{../user.author}}</a></td>
@@ -156,7 +156,7 @@
                    {{#each ../state}}
                    {{#compare this.book.id "==" ../id}} 
                     {{#if ( compare this.status "==" "want to read" )}}
-                <th scope="row">1</th>
+                <th scope="row"><img src="../uploads/{{../cover}}"></th>
                      <td><a href="/books/{{../id}}">{{../name}}</a></td>
                       <td><a href="/authors/{{../user.author.id}}">{{../user.author}}</a></td>
                        <td><a href="/categories/{{../category.category.id}}">{{../category.category}}</a></td>
