@@ -281,8 +281,8 @@
                                         <div class="form-group">
                                           <label for="exampleFormControlSelect1">Category</label>
                                           <select class="form-control text-center" id="exampleFormControlSelect1" name="category">
-                                            {{#if categories}}
-                                              {{#each categories}}
+                                            {{#if ../categories}}
+                                              {{#each ../categories}}
                                                 <option value="{{this._id}}">{{this.category}}</option>
                                               {{/each}}
                                             {{/if}}     
@@ -292,8 +292,8 @@
                                         <div class="form-group">
                                           <label for="exampleFormControlSelect1">Author</label>
                                           <select class="form-control text-center" id="exampleFormControlSelect1" name="user">
-                                            {{#if authors}}
-                                              {{#each authors}}
+                                            {{#if ../authors}}
+                                              {{#each ../authors}}
                                                 <option value="{{this._id}}">{{this.author}}</option>
                                               {{/each}}
                                             {{/if}}  
