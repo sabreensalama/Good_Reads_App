@@ -18,9 +18,9 @@ router.post('/', async (req, res) => {
     const category = new categoryModel(req.body);
     try {
      const tmp = await category.save();
-      res.send("added");
+      res.redirect("/admin/home");
+      return;
     } catch (err) {
-      
       res.send(err);
     }
     
@@ -50,10 +50,12 @@ router.get('/find', async (req, res) => {
 
 router.delete('/:id', async (req, res) => {
   try {
-    
-    const category = await categoryModel.findByIdAndDelete(currentcategory.id)
+    const category = await categoryModel.findByIdAndDelete(req.params.id)
     if (!category) res.status(404).send("No item found")
-    res.status(200).send()
+    // res.status(200).send("DELETED")
+    // res.setHeader("Location", "/admin/home");
+    res.redirect("/admin/home");
+    return;
   } catch (err) {
     res.status(500).send(err)
   }

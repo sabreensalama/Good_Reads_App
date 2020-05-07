@@ -4,9 +4,9 @@ const mongooseBeautifulUniqueValidation = require('mongoose-beautiful-unique-val
 const mongooseValidationErrorTransform = require('mongoose-validation-error-transform');
 
 const bookschema = mongoose.Schema({
-    photo: { 
-        data: Buffer, 
-        contentType: String 
+    cover: {
+      type: String,
+      required: true
     },
     
     name: {
@@ -31,7 +31,7 @@ bookschema.pre('find', function (next) {
     var book=this
     console.log(this[0])
     book.rate=book.rate/book.raters
-    next()
+
     })
     
       

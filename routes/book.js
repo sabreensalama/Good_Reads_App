@@ -18,11 +18,17 @@ router.get('/', async (req, res) => {
   currentState.forEach((x)=>{
     booksIds.push(x.book.id);
  })
-    res.render('layouts/books' ,{booksIds: booksIds,books: books , state: currentState,layout : 'books'});
-    return;
+ const pageCount = Math.ceil(books.length / 10);
+ let page = parseInt(req.query.p);
+ if (!page) { page = 1;}
+ if (page > pageCount) {
+   page = pageCount
+ }
+ return res.render('layouts/books' ,{page: page,pageCount: pageCount,booksIds: booksIds,books: books.slice(page * 10 - 10, page * 10) , state: currentState,layout : 'books'});
+    
   } catch (err) {
-    res.send(err);
-   
+    return res.status(500).json(err);
+
   }
 
   
@@ -57,7 +63,23 @@ router.post('/', async (req, res) => {
   }
   
 });
+router.get('/search', async (req, res) => {
+  
+  word = req.query.word.replace(/\s+/g, '');
 
+  var book = await bookModel.find({ 'name' : { '$regex' : word, '$options' : 'i' } });
+  try {
+    console.log(book)
+    if(word)
+    res.json({ book: book })
+ else
+ res.json({})
+  } catch (err) {
+    
+    res.send(err);
+  }
+  
+});
 router.get('/:id', async (req, res) => {
   var id = req.params.id
   var book = await bookModel.findById(id).populate('user').populate('category').exec();
@@ -65,6 +87,7 @@ router.get('/:id', async (req, res) => {
   const state = await readingStatusModel.findOne({"user":user.id , "book": req.params.id}); 
 
   console.log(state)
+
 
   try {
     

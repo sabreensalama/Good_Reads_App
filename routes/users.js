@@ -58,5 +58,11 @@ router.patch('/:id', async (req, res) => {
     res.status(500).send(err)
   }
 });
-
+router.get('/logout', function(req, res) {
+  session.email=null;
+  res.statusCode = 302;
+  res.setHeader("Location", "/");
+  res.send("notlogged in")
+  return;
+});
 module.exports = router;

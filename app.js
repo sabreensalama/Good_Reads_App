@@ -1,5 +1,6 @@
 const express = require('express')
 const mongoose = require('mongoose')
+const adminRouter = require('./routes/admin')
 const userRouter = require('./routes/users')
 const authRouter = require('./routes/auth')
 const bookRoute = require('./routes/book')
@@ -25,9 +26,19 @@ const app = express();
 //     haystack = Handlebars.escapeExpression(haystack);
 //     return (haystack.indexOf(needle) > -1) ? options.fn(this) : options.inverse(this);
 //  });
+Handlebars.registerHelper('times', function(n, block) {
+  var accum = '';
+  for(var i = 1; i <= n; ++i)
+      accum += block.fn(i);
+  return accum;
+});
+Handlebars.registerHelper('ifEquals', function(arg1, arg2, options) {
+  return (arg1 == arg2) ? options.fn(this) : options.inverse(this);
+});
 app.engine('handlebars', exphbs({
     handlebars: allowInsecurePrototypeAccess(Handlebars),
     helpers: helpers2
+    
     
 }));
 app.set('view engine', 'handlebars');
@@ -39,6 +50,8 @@ app.use(express.json())
 app.use(express.urlencoded())
 
 app.use('/', authRouter)
+app.use('/admin', adminRouter)
+
 app.use(auth)
 app.use('/users', userRouter)
 app.use('/books',bookRoute)
