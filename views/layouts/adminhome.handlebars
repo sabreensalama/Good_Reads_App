@@ -167,8 +167,7 @@
 
           <!-- Books -->
           <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
-            <div class="tab-pane fade show active" id="pills-profile" role="tabpanel"
-              aria-labelledby="pills-profile-tab">
+            <div class="tab-pane fade show active" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
               <button type="button" class="btn categories_add_button" data-toggle="modal" data-target="#exampleModal3"
                 data-whatever="@mdo">
                 <i class="fas fa-plus-circle"></i>
@@ -230,6 +229,7 @@
                           <i class="far fa-check-circle category_fa_icon"></i>
                         </button>
                       </div>
+
                     </form>
                   </div>
                 </div>
@@ -253,7 +253,7 @@
                   {{#each books}}
                     <tr>
                       <th scope="row">{{this._id}}</th>
-                      <td>{{this.cover}}</td>
+                      <td><img src="../../public/uploads/{{this.cover}}" alt="{{this.cover}}"></td>
                       <td>{{this.name}}</td>
                       <td>{{this.category.category}}</td>
                       <td>{{this.user.author}}</td>
@@ -460,9 +460,6 @@
 
       <div class="col-1"></div>
 
-      <script>
-        $('body').on('hidden.bs.modal', '.modal', function () { $(this).removeData('bs.modal'); }); 
-      </script>
 
 </body>
 
