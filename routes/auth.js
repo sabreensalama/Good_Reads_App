@@ -24,7 +24,7 @@ router.post('/login',async (req,res) => {
   if(user){
   bcrypt.compare(req.body.password, user.password, function (err, result) {
     if (result == true) {
-        
+        console.log("true")
         session.email = req.body.email;
         
         res.statusCode = 302;

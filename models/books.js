@@ -28,10 +28,7 @@ const bookschema = mongoose.Schema({
 bookschema.pre('find', function (next) {
     this.populate('user')
     this.populate('category')
-    var book=this
-    console.log(this[0])
-    book.rate=book.rate/book.raters
-
+    next()
     })
     
       
