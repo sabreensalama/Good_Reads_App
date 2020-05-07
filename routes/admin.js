@@ -8,7 +8,7 @@ const session = require('express-session');
 // const Image = require('./Image.js')
 const multer = require('multer')
 const path = require('path')
-
+var filename=null
 var storage = multer.diskStorage({
   destination: function (req, file, cb) {
     cb(null, path.join(__dirname, "../public/uploads"))
@@ -16,6 +16,7 @@ var storage = multer.diskStorage({
   filename: function (req, file, cb) {
     console.log("file", file)
     fileExtension = file.originalname.split(".")[1]
+    filename=file.fieldname + "-" + Date.now() + "." + fileExtension
     cb(null, file.fieldname + "-" + Date.now() + "." + fileExtension)
   },
 })
@@ -171,9 +172,7 @@ router.post('/authors/:id', async (req, res) => {
 
 
 router.post('/books', upload.single('cover'), async (req, res) => {
-  console.log(req.body);
-  // const Image = req.file
-  // console.log(Image);
+ req.body.cover=filename
   const book = new bookModel(req.body);
   try {
     const tmp = await book.save();
