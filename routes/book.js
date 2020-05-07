@@ -60,12 +60,15 @@ router.post('/', async (req, res) => {
 
 router.get('/:id', async (req, res) => {
   var id = req.params.id
-  var book = await bookModel.findById(id) 
-  // console.log(book)
+  var book = await bookModel.findById(id).populate('user').populate('category').exec();
+  const user = await userModel.findOne({"email":session.email}) 
+  const state = await readingStatusModel.findOne({"user":user.id , "book": req.params.id}); 
+
+  console.log(state)
 
   try {
-    // res.render('layouts/getBook' ,{ book:book ,id:id, layout:'getBook'});
-     res.send(book)
+    
+    res.render('layouts/getBook' ,{ book:book ,state:state, layout:'getBook'});
 
   } catch (err) {
     res.status(500).send(err);
