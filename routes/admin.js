@@ -86,6 +86,8 @@ router.get('/home', async (req, res, ) => {
   const categories = await categoryModel.find({})
   const books = await bookModel.find({})
   const authors = await authorModel.find({})
+  books.categories = categories
+  books.authors = authors
   res.render('layouts/adminhome', {
     categories: categories,
     books: books,
@@ -133,8 +135,15 @@ router.post('/categories/:id', async (req, res) => {
   }
 });
 
-router.post('/authors', async (req, res) => {
+router.post('/authors', upload.single('pic'), async (req, res) => {
+  req.body.pic=filename  
+  console.log(filename);
+  console.log(req.body);
+  
+  
   const author = new authorModel(req.body);
+  console.log(author);
+  
   try {
     const tmp = await author.save();
     res.redirect("/admin/home");
@@ -157,9 +166,9 @@ router.get('/authors/:id', async (req, res) => {
   }
 });
 
-router.post('/authors/:id', async (req, res) => {
+router.post('/authors/:id', upload.single('pic'),async (req, res) => {
   try {
-
+    req.body.pic=filename  
     const tmp = await authorModel.findByIdAndUpdate(req.params.id, req.body)
     tmp.save()
     res.redirect("/admin/home");

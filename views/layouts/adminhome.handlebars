@@ -101,7 +101,6 @@
             <table class="table table-bordered">
               <thead>
                 <tr>
-                  <th scope="col">ID</th>
                   <th scope="col">Name</th>
                   <th scope="col">Actions</th>
                 </tr>
@@ -110,7 +109,6 @@
                 {{#if categories}}
                       {{#each categories}}
                         <tr>
-                          <th scope="row">{{this.id}}</th>
                           <td>{{this.category}}</td>
                           <td>
                             <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
@@ -240,7 +238,6 @@
             <table class="table table-bordered">
               <thead>
                 <tr>
-                  <th scope="col">ID</th>
                   <th scope="col">Photo</th>
                   <th scope="col">Name</th>
                   <th scope="col">Category ID</th>
@@ -252,17 +249,16 @@
                 {{#if books}}
                   {{#each books}}
                     <tr>
-                      <th scope="row">{{this._id}}</th>
-                      <td><img src="../../public/uploads/{{this.cover}}" alt="{{this.cover}}"></td>
+                      <td><img src="../uploads/{{this.cover}}" alt="{{this.cover}}" style="width: auto; height: 100px;"></td>
                       <td>{{this.name}}</td>
                       <td>{{this.category.category}}</td>
                       <td>{{this.user.author}}</td>
                       <td>
                         <div class="tab-pane fade show active" id="pills-profile" role="tabpanel"
                           aria-labelledby="pills-profile-tab">
-                          <button type="button" class="btn categories_add_button" data-toggle="modal" data-target="#exampleModal{{this._id}}"
+                          <button type="button" class="btn btn-primary categories_add_button" data-toggle="modal" data-target="#exampleModal{{this._id}}"
                             data-whatever="@mdo">
-                            <i class="fas fa-plus-circle"></i>
+                            <i class="fas fa-edit "></i>
                           </button>
 
                           <div class="modal fade text-center" id="exampleModal{{this._id}}" tabindex="-2" role="dialog"
@@ -284,7 +280,7 @@
                                         <input type="text" class="form-control" id="recipient-name" placeholder="Book name" name="name" value="{{this.name}}">
                                         <div class="form-group">
                                           <label for="exampleFormControlSelect1">Category</label>
-                                          <select class="form-control text-center" id="exampleFormControlSelect1" name="category" aria-valuetext="{{this.category}}">
+                                          <select class="form-control text-center" id="exampleFormControlSelect1" name="category">
                                             {{#if categories}}
                                               {{#each categories}}
                                                 <option value="{{this._id}}">{{this.category}}</option>
@@ -295,7 +291,7 @@
 
                                         <div class="form-group">
                                           <label for="exampleFormControlSelect1">Author</label>
-                                          <select class="form-control text-center" id="exampleFormControlSelect1" name="user" aria-valuetext="{{this.user}}">
+                                          <select class="form-control text-center" id="exampleFormControlSelect1" name="user">
                                             {{#if authors}}
                                               {{#each authors}}
                                                 <option value="{{this._id}}">{{this.author}}</option>
@@ -325,14 +321,12 @@
                               </div>
                             </div>
                           </div>
-                        </div>
-
-                        <form method="GET" action="/admin/books/{{this._id}}" class="d-inline">
+                            <form method="GET" action="/admin/books/{{this._id}}" class="d-inline">
                           <button type="submit" class="btn btn-danger actions_buttons_table_delete">
                             <i class="far fa-trash-alt "></i>
                           </button>
                         </form>
-
+                        </div>
                       </td>
                     </tr>
                   {{/each}}
@@ -362,13 +356,31 @@
                       <span aria-hidden="true">&times;</span>
                     </button>
                   </div>
-                  <form method="POST" action="/admin/authors">
+                  <form method="POST" action="/admin/authors" enctype="multipart/form-data">
                     <div class="modal-body">
                         <div class="form-group">
+                          
                           <label for="recipient-name" class="col-form-label">
                             <i class="far fa-user-circle"></i>
                           </label>
+
                           <input type="text" class="form-control" id="recipient-name" placeholder="First name" name="author">
+
+                          <label for="recipient-name" class="col-form-label">
+                            <i class="far fa-calendar-alt"></i>
+                          </label>
+
+                          <input type="date" class="form-control" id="recipient-name" placeholder="Date of Birth" name="dob">
+
+                          <label for="recipient-name" class="col-form-label">
+                            <i class="fas fa-image"></i>
+                          </label>
+              
+                          <div class="custom-file">
+                            <input type="file" class="custom-file-input" id="pic" name="pic">
+                            <label class="custom-file-label" for="pic">Choose Image</label>
+                          </div>
+
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -388,8 +400,9 @@
             <table class="table table-bordered">
               <thead>
                 <tr>
-                  <th scope="col">ID</th>
                   <th scope="col">Author Name</th>
+                  <th scope="col">Photo</th>
+                  <th scope="col">Date of Birth</th>
                   <th scope="col">Actions</th>
 
                 </tr>
@@ -398,8 +411,9 @@
                 {{#if authors}}
                   {{#each authors}}
                     <tr>
-                      <th scope="row">{{this.id}}</th>
                       <td>{{this.author}}</td>
+                      <td><img src="../uploads/{{this.pic}}" alt="{{this.pic}}" style="width: auto; height: 100px;"></td>
+                      <td>{{this.dob}}</td>
                       <td>
                         <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
                             <button type="button" class="btn btn-primary categories_add_button" data-toggle="modal" data-target="#exampleModal{{this._id}}"
@@ -417,13 +431,29 @@
                                       <span aria-hidden="true">&times;</span>
                                     </button>
                                   </div>
-                                    <form method="POST" action="/admin/authors/{{this._id}}" class="d-inline">
+                                    <form method="POST" action="/admin/authors/{{this._id}}" class="d-inline" enctype="multipart/form-data">
                                         <div class="modal-body">
                                             <div class="form-group">
-                                              <label for="recipient-name" class="col-form-label">
-                                                <i class="far fa-list-alt category_fa_icon"></i>
-                                              </label>
-                                              <input type="text" class="form-control" id="recipient-name" placeholder="Category name" name="author" value="{{this.author}}">
+                                                <label for="recipient-name" class="col-form-label">
+                                                  <i class="far fa-list-alt category_fa_icon"></i>
+                                                </label>
+
+                                                <input type="text" class="form-control" id="recipient-name" placeholder="Category name" name="author" value="{{this.author}}">
+                                                
+                                                <label for="recipient-name" class="col-form-label">
+                                                  <i class="far fa-calendar-alt"></i>
+                                                </label>
+
+                                                <input type="date" class="form-control" id="recipient-name" placeholder="Date of Birth" name="dob" value="{{this.dob}}">
+
+                                                <label for="recipient-name" class="col-form-label">
+                                                  <i class="fas fa-image"></i>
+                                                </label>
+                                    
+                                                <div class="custom-file">
+                                                  <input type="file" class="custom-file-input" id="pic" name="pic" value="{{this.pic}}">
+                                                  <label class="custom-file-label" for="pic">Choose Image</label>
+                                                </div>
                                             </div>
                                         </div>
                                         <div class="modal-footer">
@@ -459,6 +489,9 @@
       </div>
 
       <div class="col-1"></div>
+      
+    </div>
+  </div>
 
 
 </body>
