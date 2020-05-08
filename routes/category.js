@@ -5,9 +5,15 @@ var router = express.Router();
 
 router.get('/', async (req, res) => {
   const categories = await categoryModel.find({});
-
+  const pageCount = Math.ceil(categories.length / 10);
+  let page = parseInt(req.query.p);
+  if (!page) { page = 1;}
+  if (page > pageCount) {
+    page = pageCount
+  }
   try {
-    res.send(categories);
+    return res.render('layouts/categories' ,{page: page,pageCount: pageCount,categories: categories.slice(page * 10 - 10, page * 10) ,layout : 'categories'});
+
   } catch (err) {
     res.status(500).send(err);
   }
@@ -25,11 +31,17 @@ router.post('/', async (req, res) => {
     }
     
   });
-router.get('/profile', async (req, res) => {
-  const books = await bookModel.find({"category":req.params.category}) 
-
+router.get('/books/:id', async (req, res) => {
+  const books = await bookModel.find({category:req.params.id}) 
+  const pageCount = Math.ceil(books.length / 10);
+  let page = parseInt(req.query.p);
+  if (!page) { page = 1;}
+  if (page > pageCount) {
+    page = pageCount
+  }
   try {
-    res.send(books);
+    return res.render('layouts/authorsbook' ,{page: page,pageCount: pageCount,books: books.slice(page * 10 - 10, page * 10) , layout : 'authorsbook'});    
+  
   } catch (err) {
     res.status(500).send(err);
   }
