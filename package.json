@@ -25,10 +25,6 @@
     "mongoose-beautiful-unique-validation": "^7.1.1",
     "mongoose-validation-error-transform": "0.0.5",
     "morgan": "~1.9.1",
-<<<<<<< HEAD
-    "rater-js": "^1.0.1"
-=======
     "multer": "^1.4.2"
->>>>>>> 2cd248a5fccce5c3db68a6d043c95740b59f896b
   }
 }
