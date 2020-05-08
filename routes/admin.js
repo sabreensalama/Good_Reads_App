@@ -51,6 +51,12 @@ router.use(session({
   }
 }))
 router.post('/', async (req, res) => {
+  if(req.body.email!="admin@admin.com")
+  {
+   return res.status(500).send({
+      message: 'unknown credintials'
+   });
+  }
   const user = await userModel.findOne({
     "email": req.body.email
   })
