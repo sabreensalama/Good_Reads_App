@@ -4,7 +4,7 @@ const mongooseValidationErrorTransform = require('mongoose-validation-error-tran
 var authorSchema = new mongoose.Schema({
 
 author: { type: String, required: true, maxlength: 20, minlength: 3 },
-dob: { type: Date, required: true, max: new Date('2000-01-01') },
+dob: { type: String, required: true, max: new Date('2000-01-01') },
 pic: {
   type: String,
   required: true

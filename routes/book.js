@@ -33,6 +33,22 @@ router.get('/', async (req, res) => {
 
   
 });
+router.get('/allbooks', async (req, res) => {
+  const books = await bookModel.find({});
+  const pageCount = Math.ceil(books.length / 10);
+  let page = parseInt(req.query.p);
+  if (!page) { page = 1;}
+  if (page > pageCount) {
+    page = pageCount
+  }
+  try {
+    return res.render('layouts/authorsbook' ,{page: page,pageCount: pageCount,books: books.slice(page * 10 - 10, page * 10) , layout : 'authorsbook'});    
+  } catch (err) {
+    res.status(500).send(err);
+  }
+
+  
+});
 router.post('/addstatus', async (req, res) => {
   const currentUser= await userModel.findOne({"email":session.email}) 
   const currentState = new readingStatusModel({"user":currentUser.id,"status":req.body.status,"book":req.body.book}) 

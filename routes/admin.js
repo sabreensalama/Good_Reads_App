@@ -133,7 +133,8 @@ router.post('/categories/:id', async (req, res) => {
   }
 });
 
-router.post('/authors', async (req, res) => {
+router.post('/authors',upload.single('pic'), async (req, res) => {
+  req.body.pic=filename
   const author = new authorModel(req.body);
   try {
     const tmp = await author.save();
@@ -145,7 +146,8 @@ router.post('/authors', async (req, res) => {
 
 });
 
-router.get('/authors/:id', async (req, res) => {
+router.get('/authors/:id',async (req, res) => {
+
   try {
     const author = await authorModel.findByIdAndDelete(req.params.id)
     if (!author) res.status(404).send("No item found")
@@ -157,7 +159,9 @@ router.get('/authors/:id', async (req, res) => {
   }
 });
 
-router.post('/authors/:id', async (req, res) => {
+router.post('/authors/:id',upload.single('pic'), async (req, res) => {
+  req.body.pic=filename
+
   try {
 
     const tmp = await authorModel.findByIdAndUpdate(req.params.id, req.body)
@@ -196,7 +200,9 @@ router.get('/books/:id', async (req, res) => {
   }
 });
 
-router.post('/books/:id', async (req, res) => {
+router.post('/books/:id',upload.single('cover'), async (req, res) => {
+  req.body.cover=filename
+
   try {
     const tmp = await bookModel.findByIdAndUpdate(req.params.id, req.body)
     tmp.save()
