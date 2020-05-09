@@ -1,10 +1,10 @@
 const mongoose = require('mongoose')
 const Schema = mongoose.Schema;
 var bookStatusSchema =  mongoose.Schema({
-    status:{ type: String , default:"reading" , enum:[ "reading" , "now reading" , "finished reading" ]},
+    status:{ type: String , default:"reading" , enum:[ "reading" , "want to read" , "finished reading" ]},
 
-    user:{type: Schema.Types.ObjectId, ref: 'User', required: true},
-    book:{type: Schema.Types.ObjectId, ref: 'Book', required: true} ,
+    user:{type: Schema.Types.ObjectId, ref: 'User', required: true,unique:false,default:1},
+    book:{type: Schema.Types.ObjectId, ref: 'Book', required: true,unique:false,default:1} ,
 
     });
     
@@ -13,6 +13,5 @@ var bookStatusSchema =  mongoose.Schema({
         this.populate('book')
         next()
         })
-        bookStatusSchema.index({user: 1, book: 1}, {unique: true});
  const readingStatusModel =  mongoose.model('ReadingStatus', bookStatusSchema);
  module.exports = readingStatusModel

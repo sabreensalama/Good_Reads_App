@@ -50,36 +50,38 @@ router.get('/allbooks', async (req, res) => {
 
   
 });
-router.post('/addstatus', async (req, res) => {
+router.get('/:id/addstatus/:status', async (req, res) => {
   const currentUser= await userModel.findOne({"email":session.email}) 
-  const currentState = new readingStatusModel({"user":currentUser.id,"status":req.body.status,"book":req.body.book}) 
-
-
-  try {
-    const tmp = await currentState.save();
-       
-    res.send("added");
-
-  } catch (err) {
-    res.status(500).send(err);
-  }
-
   
+     return readingStatusModel.findOneAndUpdate({"user":currentUser.id,"book":req.params.id},{"status":req.params.status},async function(err, doc) {
+      if (!doc){
+        return readingStatusModel.create({"status":req.params.status,"book":req.params.id,"user":currentUser._id}, function (err, user) {
+          if (err) {
+              return res
+                  .status(400)
+                  .json(err)
+          } else {
+            return res.send('Succesfully saved.');
+          }
+      })
+      }
+      return res.send('Succesfully saved.');
+  });
 });
 
-router.post('/', async (req, res) => {
-  const book = new bookModel(req.body);
-  try {
-   const tmp = await book.save();
-    
-   
-    res.send("added");
-  } catch (err) {
-    
-    res.send(err);
-  }
-  
+router.post('/:id/rate/:rate', async (req, res) => {
+  var id = req.params.id
+  var prvbook = await bookModel.findById(id)
+  var book = await bookModel.findOneAndUpdate({_id:id},{rate:parseFloat(prvbook.rate)+parseFloat(req.params.rate),raters:prvbook.raters+1}, function(err, doc) {
+    if (err) return res.send(500, {error: err});
+    return res.send('Succesfully saved.');
 });
+ 
+});
+
+
+
+
 router.get('/search', async (req, res) => {
   
   word = req.query.word.replace(/\s+/g, '');
@@ -101,16 +103,13 @@ router.get('/:id', async (req, res) => {
   var id = req.params.id
   var book = await bookModel.findById(id).populate('user').populate('category').exec();
   const user = await userModel.findOne({"email":session.email}) 
-  const state = await readingStatusModel.findOne({"user":user.id , "book": req.params.id}); 
-  const review = await reviewsModel.find({"user":user.id , "book": req.params.id}).sort({_id:-1}).limit(5).populate('user').exec();
-
-
-
-
+  const state = await readingStatusModel.findOne({"user":user._id , "book": req.params.id}); 
+  const review = await reviewsModel.find({"book": req.params.id}).sort({_id:-1}).limit(5).exec();
+  const stars=book.rate/book.raters
   try {
     
     // res.send(review)
-    res.render('layouts/getBook' ,{ book:book ,state:state,review:review, layout:'getBook'});
+    res.render('layouts/getBook' ,{ stars:stars,book:book ,state:state,reviews:review, layout:'getBook'});
 
   } catch (err) {
     res.status(500).send(err);
@@ -140,21 +139,23 @@ router.patch('/:id', async (req, res) => {
 
 
 // add review 
-router.post('/addreview', async (req, res) => {
+router.post('/review', async (req, res) => {
+  if(req.body.review){
   const currentUser= await userModel.findOne({"email":session.email}) 
   const currentReview = new reviewsModel({"user":currentUser.id,"review":req.body.review,"book":req.body.book}) 
 
 
   try {
     const tmp = await currentReview.save();
-       
-    res.send("added");
+    return res.redirect("/books/"+req.body.book);
 
   } catch (err) {
     res.status(500).send(err);
   }
 
-  
+}
+else{    return res.redirect("/books/"+req.body.book);
+}
 });
 
 module.exports = router;

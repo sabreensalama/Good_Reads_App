@@ -7,7 +7,12 @@ var bookReviewSchema =  mongoose.Schema({
     review:{type:String}
 
     });
-    
+    bookReviewSchema.pre('find', function (next) {
+        this.populate('user')
+        this.populate('book')
+        next()
+        })
+        
 
  const reviewModel =  mongoose.model('BookReview', bookReviewSchema);
  module.exports = reviewModel
