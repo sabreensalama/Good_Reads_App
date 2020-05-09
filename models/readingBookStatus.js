@@ -6,7 +6,6 @@ var bookStatusSchema =  mongoose.Schema({
     user:{type: Schema.Types.ObjectId, ref: 'User', required: true},
     book:{type: Schema.Types.ObjectId, ref: 'Book', required: true} ,
 
-    status:{ type: String , enum:[ "reading" , "want to read" , "finished reading" ]}
     });
     
     bookStatusSchema.pre('find', function (next) {

@@ -2,6 +2,7 @@ var express = require('express');
 const bookModel = require('../models/books');
 const readingStatusModel = require('../models/readingBookStatus');
 const userModel = require('../models/users');
+const reviewsModel =require('../models/reviews')
 
 
 const session = require('express-session')
@@ -101,13 +102,15 @@ router.get('/:id', async (req, res) => {
   var book = await bookModel.findById(id).populate('user').populate('category').exec();
   const user = await userModel.findOne({"email":session.email}) 
   const state = await readingStatusModel.findOne({"user":user.id , "book": req.params.id}); 
+  const review = await reviewsModel.find({"user":user.id , "book": req.params.id}).sort({_id:-1}).limit(5).populate('user').exec();
 
-  console.log(state)
+
 
 
   try {
     
-    res.render('layouts/getBook' ,{ book:book ,state:state, layout:'getBook'});
+    // res.send(review)
+    res.render('layouts/getBook' ,{ book:book ,state:state,review:review, layout:'getBook'});
 
   } catch (err) {
     res.status(500).send(err);
@@ -133,6 +136,25 @@ router.patch('/:id', async (req, res) => {
   } catch (err) {
     res.status(500).send(err)
   }
+});
+
+
+// add review 
+router.post('/addreview', async (req, res) => {
+  const currentUser= await userModel.findOne({"email":session.email}) 
+  const currentReview = new reviewsModel({"user":currentUser.id,"review":req.body.review,"book":req.body.book}) 
+
+
+  try {
+    const tmp = await currentReview.save();
+       
+    res.send("added");
+
+  } catch (err) {
+    res.status(500).send(err);
+  }
+
+  
 });
 
 module.exports = router;
