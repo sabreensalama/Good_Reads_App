@@ -28,7 +28,6 @@ const bookschema = mongoose.Schema({
 bookschema.pre('find', function (next) {
     this.populate('user')
     this.populate('category')
-    
     next()
     })
     

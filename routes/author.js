@@ -5,9 +5,30 @@ var router = express.Router();
 
 router.get('/', async (req, res) => {
   const authors = await authorModel.find({});
-
+  const pageCount = Math.ceil(authors.length / 10);
+  let page = parseInt(req.query.p);
+  if (!page) { page = 1;}
+  if (page > pageCount) {
+    page = pageCount
+  }
   try {
-    res.send(authors);
+    return res.render('layouts/authors' ,{page: page,pageCount: pageCount,authors: authors.slice(page * 10 - 10, page * 10) , layout : 'authors'});    
+  } catch (err) {
+    res.status(500).send(err);
+  }
+
+  
+});
+router.get('/books/:id', async (req, res) => {
+  const books = await bookModel.find({user:req.params.id});
+  const pageCount = Math.ceil(books.length / 10);
+  let page = parseInt(req.query.p);
+  if (!page) { page = 1;}
+  if (page > pageCount) {
+    page = pageCount
+  }
+  try {
+    return res.render('layouts/authorsbook' ,{page: page,pageCount: pageCount,books: books.slice(page * 10 - 10, page * 10) , layout : 'authorsbook'});    
   } catch (err) {
     res.status(500).send(err);
   }

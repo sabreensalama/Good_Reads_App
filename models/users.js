@@ -2,6 +2,7 @@ const mongoose = require('mongoose')
 var bcrypt = require('bcrypt');
 const mongooseBeautifulUniqueValidation = require('mongoose-beautiful-unique-validation');
 const mongooseValidationErrorTransform = require('mongoose-validation-error-transform');
+var P = mongoose.Promise = require('bluebird');
 SALT_WORK_FACTOR = 10;
 var userSchema = new mongoose.Schema({
 firstName: { type: String, required: true, maxlength: 20, minlength: 3 },
@@ -61,4 +62,8 @@ userSchema.pre('save', function(next) {
 });
 
 const userModel = mongoose.model('User', userSchema)
+var data=[{email:"admin@admin.com",password:"admin123",firstName:"admin",lastName:"admin",dob:"01-01-1990",gender:"m",phoneNo:"00000000000"}]
+P.all(data.map(i => new userModel(i).save()))
+    .then(() => console.log('Data saved'))
+    .catch((err) => console.log('Error: ' + err))
 module.exports = userModel

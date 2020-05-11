@@ -11,7 +11,9 @@ async function logRequestBody(req, res, next) {
     else
     {
         const currentUser= await userModel.findOne({"email":session.email}) 
- res.locals.user=currentUser
+        res.locals.user=currentUser
+        
+
     }
        
     next()
