@@ -4,6 +4,7 @@ const adminRouter = require('./routes/admin')
 const userRouter = require('./routes/users')
 const authRouter = require('./routes/auth')
 const bookRoute = require('./routes/book')
+var flash = require('express-flash')
 
 const categoryRouter = require('./routes/category')
 const authorRoute = require('./routes/author')
@@ -44,7 +45,7 @@ app.engine('handlebars', exphbs({
 app.set('view engine', 'handlebars');
 
 app.listen(PORT, () => console.log(`Example app listening at http://localhost:${PORT}`))
-
+app.use(flash())
 app.use(express.static('public'))
 app.use(express.json())
 app.use(express.urlencoded())
