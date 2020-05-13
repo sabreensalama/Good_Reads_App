@@ -85,6 +85,7 @@ $ npm start
 ```
 admin panel:
 ```
+URL:http://localhost:5000/admin
 username :admin@admin.com
 password :admin123
 ```
