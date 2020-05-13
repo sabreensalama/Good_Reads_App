@@ -83,8 +83,8 @@ $ npm install
 ```bash
 $ npm start
 ```
+admin panel:
 ```
-for admin panel 
 username :admin@admin.com
 password :admin123
   View the website at: http://localhost:5000
