@@ -1,0 +1,16 @@
+version: "3.3"
+services:
+  good-reads:
+    build: .
+    container_name: good-reads
+    depends_on:
+      - mongodb
+    ports: 
+      - "9000:5000"
+
+
+
+  mongodb:
+    image: mongo
+    restart: always
+    container_name: mongodb

@@ -1,5 +1,5 @@
 const mongoose = require('mongoose')
-var bcrypt = require('bcrypt');
+//var bcrypt = require('bcrypt');
 const mongooseBeautifulUniqueValidation = require('mongoose-beautiful-unique-validation');
 const mongooseValidationErrorTransform = require('mongoose-validation-error-transform');
 var P = mongoose.Promise = require('bluebird');
